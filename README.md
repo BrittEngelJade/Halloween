@@ -1,2 +1,580 @@
 # Halloween
 Repository name: halloween-math-quest
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halloween Math Quest</title>
+
+<style>
+:root{
+    --sky1:#12051f;
+    --sky2:#2b1246;
+    --sky3:#0f0718;
+    --orange:#ff8d22;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    font-family:Segoe UI,sans-serif;
+    background:#000;
+}
+
+#world{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    background:linear-gradient(
+        to bottom,
+        var(--sky1),
+        var(--sky2),
+        var(--sky3)
+    );
+}
+
+/* MOON */
+
+.moon{
+    position:absolute;
+    top:40px;
+    right:100px;
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:#ffd98c;
+    box-shadow:
+        0 0 30px rgba(255,210,120,.3);
+}
+
+/* HOUSES */
+
+.house{
+    position:absolute;
+    bottom:130px;
+    background:#080808;
+    clip-path:polygon(
+      0 100%,0 45%,25% 20%,25% 0,
+      55% 0,55% 22%,100% 45%,100% 100%
+    );
+}
+
+.h1{left:-2%;width:220px;height:230px;}
+.h2{left:20%;width:270px;height:260px;}
+.h3{left:48%;width:250px;height:240px;}
+.h4{right:5%;width:230px;height:220px;}
+
+/* CATS */
+
+.cat{
+    position:absolute;
+    color:#050505;
+    font-size:36px;
+    bottom:340px;
+}
+
+.cat1{left:22%;}
+.cat2{left:70%;}
+
+/* BATS */
+
+.bat{
+    position:absolute;
+    color:#0a0a0a;
+    font-size:26px;
+    opacity:.8;
+}
+
+.b1{
+    top:90px;
+    left:30%;
+    animation:float 18s ease-in-out infinite;
+}
+
+.b2{
+    top:140px;
+    left:60%;
+    animation:float 14s ease-in-out infinite;
+}
+
+@keyframes float{
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+/* WITCH */
+
+.witch{
+    position:absolute;
+    top:110px;
+    left:-200px;
+    color:#070707;
+    font-size:42px;
+    animation:witch 110s linear infinite;
+}
+
+@keyframes witch{
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(calc(100vw + 400px));
+    }
+}
+
+/* FOG */
+
+.fog{
+    position:absolute;
+    bottom:-80px;
+    width:200%;
+    height:250px;
+    background:
+        radial-gradient(
+            rgba(255,255,255,.08),
+            transparent 60%
+        );
+    filter:blur(40px);
+    animation:fog 70s linear infinite;
+}
+
+@keyframes fog{
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(-25%);
+    }
+}
+
+/* STUDENTS */
+
+#students{
+    position:absolute;
+    inset:0;
+}
+
+.student{
+    position:absolute;
+    width:120px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.figure{
+    position:relative;
+    width:80px;
+    height:110px;
+    margin:auto;
+}
+
+.head{
+    position:absolute;
+    top:0;
+    left:28px;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:#050505;
+}
+
+.body{
+    position:absolute;
+    top:20px;
+    left:35px;
+    width:10px;
+    height:55px;
+    background:#050505;
+}
+
+.arm{
+    position:absolute;
+    top:32px;
+    left:22px;
+    width:40px;
+    height:6px;
+    background:#050505;
+    transform:rotate(-12deg);
+}
+
+.leg1,
+.leg2{
+    position:absolute;
+    top:72px;
+    width:8px;
+    height:32px;
+    background:#050505;
+}
+
+.leg1{left:30px;}
+.leg2{left:42px;}
+
+/* LANTERN */
+
+.lantern{
+    position:absolute;
+    top:38px;
+    left:55px;
+
+    width:16px;
+    height:16px;
+
+    border-radius:50%;
+    background:var(--orange);
+
+    box-shadow:
+        0 0 5px var(--orange),
+        0 0 12px var(--orange);
+
+    animation:flicker 4s ease-in-out infinite;
+}
+
+@keyframes flicker{
+    50%{
+        filter:brightness(1.15);
+    }
+}
+
+.name{
+    margin-top:5px;
+    color:#d5cabc;
+    font-size:15px;
+}
+
+/* CANDY */
+
+.candy{
+    position:absolute;
+    font-size:20px;
+    pointer-events:none;
+    z-index:999;
+}
+
+/* SETTINGS */
+
+#setup{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.85);
+    z-index:1000;
+}
+
+.box{
+    background:#1b1127;
+    padding:30px;
+    border-radius:20px;
+    width:460px;
+}
+
+.box h2{
+    color:#fff;
+    margin-bottom:15px;
+}
+
+textarea{
+    width:100%;
+    height:220px;
+    border:none;
+    border-radius:10px;
+    padding:10px;
+}
+
+button{
+    margin-top:15px;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#ff8d22;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div id="world">
+
+<div class="moon"></div>
+
+<div class="house h1"></div>
+<div class="house h2"></div>
+<div class="house h3"></div>
+<div class="house h4"></div>
+
+<div class="cat cat1">🐈‍⬛</div>
+<div class="cat cat2">🐈‍⬛</div>
+
+<div class="bat b1">🦇</div>
+<div class="bat b2">🦇</div>
+
+<div class="witch">🧙</div>
+
+<div id="students"></div>
+
+<div class="fog"></div>
+
+<div id="setup">
+    <div class="box">
+        <h2>🎃 Halloween Math Quest</h2>
+
+<textarea id="names">
+Emma
+Noah
+Alma
+Lucas
+William
+Sofie
+Freja
+Anton
+</textarea>
+
+<button onclick="startWorld()">
+Start Halloween-natten
+</button>
+
+    </div>
+</div>
+
+</div>
+
+<script>
+
+let scores = {};
+
+function save(){
+    localStorage.setItem(
+        "halloween_math",
+        JSON.stringify(scores)
+    );
+}
+
+function load(){
+    return JSON.parse(
+        localStorage.getItem("halloween_math") || "{}"
+    );
+}
+
+function lanternLevel(score){
+
+    if(score < 5) return 16;
+    if(score < 10) return 20;
+    if(score < 20) return 24;
+    if(score < 40) return 30;
+    if(score < 60) return 36;
+    return 44;
+
+}
+
+function addCandy(student){
+
+    scores[student]++;
+
+    save();
+
+    const lantern =
+    document.getElementById(
+        "lantern-"+student
+    );
+
+    const size =
+    lanternLevel(scores[student]);
+
+    lantern.style.width=size+"px";
+    lantern.style.height=size+"px";
+
+    lantern.style.boxShadow=`
+    0 0 ${size}px orange,
+    0 0 ${size*1.8}px orange
+    `;
+
+    lantern.animate(
+    [
+        {transform:"scale(1)"},
+        {transform:"scale(1.4)"},
+        {transform:"scale(1)"}
+    ],
+    {
+        duration:600
+    });
+
+    launchCandy(lantern);
+}
+
+function launchCandy(target){
+
+    const candy =
+    document.createElement("div");
+
+    candy.className="candy";
+    candy.textContent="🍬";
+
+    document.body.appendChild(candy);
+
+    const startX =
+    window.innerWidth/2;
+
+    const startY =
+    60;
+
+    const rect =
+    target.getBoundingClientRect();
+
+    candy.style.left=
+    startX+"px";
+
+    candy.style.top=
+    startY+"px";
+
+    candy.animate([
+    {
+        transform:
+        `translate(0,0)`
+    },
+    {
+        transform:
+        `translate(
+        ${rect.left-startX}px,
+        ${rect.top-startY}px
+        )`
+    }
+    ],
+    {
+        duration:700,
+        easing:"ease-in-out"
+    });
+
+    setTimeout(()=>{
+        candy.remove();
+    },700);
+
+}
+
+function startWorld(){
+
+    const list =
+    document.getElementById("names")
+    .value
+    .split("\n")
+    .map(n=>n.trim())
+    .filter(Boolean);
+
+    document
+    .getElementById("setup")
+    .style.display="none";
+
+    const container =
+    document.getElementById("students");
+
+    scores = load();
+
+    list.forEach((name,index)=>{
+
+        if(!scores[name]) scores[name]=0;
+
+        const s =
+        document.createElement("div");
+
+        s.className="student";
+
+        const x =
+        50 +
+        (
+        index %
+        Math.ceil(list.length/2)
+        )
+        * 170;
+
+        const row =
+        Math.floor(
+        index /
+        Math.ceil(list.length/2)
+        );
+
+        s.style.left=x+"px";
+        s.style.bottom=
+        row === 0 ? "180px"
+                  : "260px";
+
+        s.innerHTML=`
+        <div class="figure">
+
+            <div class="head"></div>
+            <div class="body"></div>
+            <div class="arm"></div>
+            <div class="leg1"></div>
+            <div class="leg2"></div>
+
+            <div
+            class="lantern"
+            id="lantern-${name}">
+            </div>
+
+        </div>
+
+        <div class="name">
+        ${name}
+        </div>
+        `;
+
+        s.onclick=()=>addCandy(name);
+
+        container.appendChild(s);
+
+        animateWalk(s,index);
+
+        const lantern =
+        s.querySelector(".lantern");
+
+        const size =
+        lanternLevel(scores[name]);
+
+        lantern.style.width=size+"px";
+        lantern.style.height=size+"px";
+        lantern.style.boxShadow=`
+        0 0 ${size}px orange,
+        0 0 ${size*1.8}px orange
+        `;
+    });
+
+}
+
+function animateWalk(el,index){
+
+    let pos=0;
+    let dir=1;
+
+    setInterval(()=>{
+
+        pos +=
+        (Math.random()*20+10)
+        * dir;
+
+        if(pos > 50) dir=-1;
+        if(pos < -50) dir=1;
+
+        el.style.transition =
+        "transform 8s ease-in-out";
+
+        el.style.transform =
+        `translateX(${pos}px)`;
+
+    }, 7000 + index*250);
+
+}
+
+</script>
+
+</body>
+</html>
